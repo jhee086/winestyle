@@ -1,73 +1,112 @@
-# React + TypeScript + Vite
+# 취향와인 (WineStyle)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+> 일상 취향으로 찾는 내 와인 캐릭터 — 앱인토스 WebView 미니앱
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 개요
 
-## React Compiler
+와인을 한 번도 마셔본 적 없어도 OK. 카페 음료, 좋아하는 음식, 운동 스타일 등 일상의 취향 8가지를 골라가다 보면 나에게 맞는 와인 캐릭터와 구체적인 추천 와인을 알려주는 취향 테스트 앱.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## 핵심 문제
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- 와인 입문자는 어떤 와인을 사야 할지 모른다
+- "소비뇽 블랑", "탄닌" 같은 전문 용어가 진입 장벽이 됨
+- 정보는 많지만 나에게 맞는 첫 병을 고르는 기준이 없다
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## 해결 방식
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+와인 지식 없이도 답할 수 있는 일상 취향 질문 8개로 매칭. 와인 용어 대신 카페 음료, 과일, 향수, 탄산 선호도 등 이미 알고 있는 취향으로 와인 성향을 추론한다.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+---
+
+## 사용자 플로우
+
+```
+랜딩 → [시작하기] → 8문항 순차 응답 → 결과 화면
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 랜딩
+- 와인 글라스 이모지, 앱 소개 문구
+- "8문항 · 8가지 타입" 배지
+- 시작하기 버튼
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### 퀴즈 (8문항)
+| # | 질문 | 측정 축 |
+|---|------|---------|
+| 1 | 카페에서 자주 시키는 음료는? | 단맛 |
+| 2 | 달콤한 거 얼마나 좋아해요? | 단맛 |
+| 3 | 메인 메뉴 골라봐! | 바디감 |
+| 4 | 좋아하는 운동/액티비티? | 바디감 |
+| 5 | 과일 고른다면? | 산미 |
+| 6 | 향수 뿌릴 때는? | 아로마 |
+| 7 | 영화나 책 한 편 고른다면? | 복합성 |
+| 8 | 음료 취향은? | 탄산감 |
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+각 문항은 A/B 2지선다. 선택할 때마다 6개 축 점수에 가중치 누적.
+
+### 결과
+- 와인 캐릭터 타입 + 한 줄 설명
+- 취향 프로필 바 (6축 시각화)
+- 추천 와인 3종 (이름 + 구매처 + 가격)
+- 음식 페어링
+- 결과 공유 버튼
+
+---
+
+## 와인 타입 8가지
+
+| 타입 | 캐릭터 | 대표 품종 |
+|------|--------|-----------|
+| 샴페인파 | 샹들리에 같은 너 | 뵈브 클리코, 모엣 샹동 |
+| 모스카토파 | 솜사탕 같은 너 | 모스카토 다스티 |
+| 소비뇽 블랑파 | 풀잎 머금은 청사과 같은 너 | 클라우디 베이, 킴 크로포드 |
+| 샤르도네파 | 갓 구운 빵 같은 너 | 루이 자도, 타라파카 |
+| 피노 누아파 | 갓 우린 홍차 같은 너 | 메오미, 코노 수르 |
+| 메를로파 | 포근한 담요 같은 너 | 몬테스 알파 |
+| 카베르네 소비뇽파 | 무게감 있는 만년필 같은 너 | 1865, 카시예로 델 디아블로 |
+| 말벡파 | 한밤의 탱고 같은 너 | 카테나, 트라피체 |
+
+---
+
+## 매칭 로직
+
+6개 축 점수를 기반으로 유클리드 거리로 가장 가까운 와인 타입 선택.
+
+**점수 축:** `sweet`, `body`, `acid`, `aroma`, `complex`, `bubble`
+
+각 선택지는 해당 축에 가중치(±2~4)를 부여. 8문항 완료 후 사용자 점수 벡터와 와인 타입 프로필 벡터 간 최소 거리 타입이 결과로 출력됨.
+
+---
+
+## 광고 구좌
+
+총 10회 노출 구조:
+- 랜딩 1회 (시작하기 버튼 하단)
+- 퀴즈 8회 (매 문항 선택지 하단)
+- 결과 1회 (취향 프로필과 추천 와인 사이)
+
+---
+
+## 기술 스택
+
+- React 18 + TypeScript
+- Vite
+- @apps-in-toss/web-framework
+- @toss/tds-mobile
+
+## 로컬 실행
+
+```bash
+npm install
+npm run dev
+```
+
+## 빌드 및 배포
+
+```bash
+npx granite build   # .ait 번들 생성
+ait deploy          # 앱인토스 배포
 ```
