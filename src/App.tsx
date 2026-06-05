@@ -1,5 +1,35 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect, useRef } from 'react'
+import { TossAds } from '@apps-in-toss/web-framework'
 import './App.css'
+
+const AD_GROUP_ID = 'ait.v2.live.f6820d0c4f104613'
+
+function BannerAd() {
+  const containerRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (!TossAds.initialize.isSupported()) return
+    let destroy: (() => void) | undefined
+
+    TossAds.initialize({
+      callbacks: {
+        onInitialized: () => {
+          if (!containerRef.current) return
+          const attached = TossAds.attachBanner(AD_GROUP_ID, containerRef.current, {
+            theme: 'auto',
+            tone: 'blackAndWhite',
+            variant: 'expanded',
+          })
+          destroy = () => attached?.destroy()
+        },
+      },
+    })
+
+    return () => destroy?.()
+  }, [])
+
+  return <div ref={containerRef} style={{ width: '100%', height: '96px', marginTop: '24px' }} />
+}
 
 type Screen = 'landing' | 'quiz' | 'result'
 type ScoreKey = 'sweet' | 'body' | 'acid' | 'aroma' | 'complex' | 'bubble'
@@ -273,7 +303,7 @@ function App() {
             와인 몰라도, 취향은 알잖아요
           </div>
           <button className="btn-primary" onClick={startQuiz}>시작하기</button>
-          <div className="ad-banner">광고</div>
+          <BannerAd />
         </div>
       )}
 
@@ -294,7 +324,7 @@ function App() {
               <div className="option-text">{questions[currentQ].b.text}</div>
             </button>
           </div>
-          <div className="ad-banner">광고</div>
+          <BannerAd />
         </div>
       )}
 
@@ -323,7 +353,7 @@ function App() {
             })}
           </div>
 
-          <div className="ad-banner">광고</div>
+          <BannerAd />
           <div className="section-label">🍷 추천 와인</div>
           <div className="wine-list">
             {wine.wines.map((w) => (
