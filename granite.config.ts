@@ -1,7 +1,7 @@
 import { defineConfig } from '@apps-in-toss/web-framework/config';
 
 export default defineConfig({
-  appName: 'wine-taste-finder',
+  appName: 'winelover',
   brand: {
     displayName: '와인 취향 찾기',
     primaryColor: '#3182F6',
