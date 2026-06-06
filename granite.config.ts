@@ -3,9 +3,9 @@ import { defineConfig } from '@apps-in-toss/web-framework/config';
 export default defineConfig({
   appName: 'winelover',
   brand: {
-    displayName: '와인 취향 찾기',
+    displayName: '취향와인',
     primaryColor: '#3182F6',
-    icon: '',
+    icon: 'https://static.toss.im/appsintoss/34653/a2c33104-3778-4076-937e-19775f1fec90.png',
   },
   web: {
     host: 'localhost',
