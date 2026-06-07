@@ -1,4 +1,5 @@
 import { useState, useMemo, useEffect, useRef } from 'react'
+import { TossAds, getTossShareLink, share } from '@apps-in-toss/web-framework'
 import './App.css'
 
 const AD_IDS = {
@@ -14,27 +15,22 @@ function BannerAd({ slot }: { slot: keyof typeof AD_IDS }) {
   const containerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    if (!isTossWebView) return
+    if (!TossAds.initialize.isSupported()) return
     let destroy: (() => void) | undefined
 
-    import('@apps-in-toss/web-framework').then(({ TossAds }) => {
-      try {
-        if (!TossAds.initialize.isSupported()) return
-        TossAds.initialize({
-          callbacks: {
-            onInitialized: () => {
-              if (!containerRef.current) return
-              const attached = TossAds.attachBanner(AD_IDS[slot], containerRef.current, {
-                theme: 'auto',
-                tone: 'blackAndWhite',
-                variant: 'expanded',
-              })
-              destroy = () => attached?.destroy()
-            },
-          },
-        })
-      } catch {}
-    }).catch(() => {})
+    TossAds.initialize({
+      callbacks: {
+        onInitialized: () => {
+          if (!containerRef.current) return
+          const attached = TossAds.attachBanner(AD_IDS[slot], containerRef.current, {
+            theme: 'auto',
+            tone: 'blackAndWhite',
+            variant: 'expanded',
+          })
+          destroy = () => attached?.destroy()
+        },
+      },
+    })
 
     return () => destroy?.()
   }, [slot])
@@ -291,11 +287,11 @@ function App() {
   }
 
   const shareResult = async () => {
-    const ogImageUrl = 'https://jhee086.github.io/winestyle/thumbnail.png'
-
     if (isTossWebView) {
-      const { getTossShareLink, share } = await import('@apps-in-toss/web-framework')
-      const tossLink = await getTossShareLink('intoss://winelover', ogImageUrl)
+      const tossLink = await getTossShareLink(
+        'intoss://winelover',
+        'https://jhee086.github.io/winestyle/thumbnail.png'
+      )
       await share({ message: tossLink })
       return
     }
