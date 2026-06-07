@@ -299,7 +299,8 @@ function App() {
   const shareResult = () => {
     const text = `🍷 내 와인 캐릭터: ${wine.title}\n(${wine.subtitle})\n\n${wine.character}\n\n취향와인 앱에서 나도 찾아봐요 👉 intoss://winelover`
 
-    if (navigator.share && shareBlobRef.current) {
+    // Toss 앱: 이미지 파일 포함 네이티브 공유
+    if (isTossWebView && navigator.share && shareBlobRef.current) {
       const file = new File([shareBlobRef.current], 'wine-character.png', { type: 'image/png' })
       if (navigator.canShare?.({ files: [file] })) {
         navigator.share({ title: '취향와인', text, files: [file] })
@@ -307,11 +308,16 @@ function App() {
       }
     }
 
-    if (navigator.share) {
-      navigator.share({ title: '취향와인', text })
-    } else {
-      navigator.clipboard?.writeText(text).then(() => alert('결과가 복사되었어요! 🍷'))
+    // 웹: 이미지 다운로드 + 텍스트 복사
+    if (shareBlobRef.current) {
+      const url = URL.createObjectURL(shareBlobRef.current)
+      const a = document.createElement('a')
+      a.href = url
+      a.download = 'wine-character.png'
+      a.click()
+      URL.revokeObjectURL(url)
     }
+    navigator.clipboard?.writeText(text).then(() => alert('이미지 저장 + 텍스트 복사 완료! 🍷'))
   }
 
   return (
