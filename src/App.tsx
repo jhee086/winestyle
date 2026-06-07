@@ -260,6 +260,7 @@ function App() {
   const [screen, setScreen] = useState<Screen>('landing')
   const [currentQ, setCurrentQ] = useState(0)
   const [scores, setScores] = useState<Scores>({ ...emptyScores })
+  const shareCardRef = useRef<HTMLDivElement>(null)
 
   const matchedKey = useMemo(() => findBestMatch(scores), [scores])
   const wine = wineTypes[matchedKey]
@@ -284,8 +285,26 @@ function App() {
     }
   }
 
-  const shareResult = () => {
+  const shareResult = async () => {
     const text = `🍷 내 와인 캐릭터: ${wine.title}\n(${wine.subtitle})\n\n${wine.character}\n\n취향와인 앱에서 나도 찾아봐요 👉 intoss://winelover`
+
+    if (shareCardRef.current && navigator.share && navigator.canShare) {
+      try {
+        const html2canvas = (await import('html2canvas')).default
+        const canvas = await html2canvas(shareCardRef.current, { backgroundColor: null, scale: 2 })
+        canvas.toBlob(async (blob) => {
+          if (!blob) return
+          const file = new File([blob], 'wine-character.png', { type: 'image/png' })
+          if (navigator.canShare({ files: [file] })) {
+            await navigator.share({ title: '취향와인', text, files: [file] })
+          } else {
+            await navigator.share({ title: '취향와인', text })
+          }
+        }, 'image/png')
+        return
+      } catch {}
+    }
+
     if (navigator.share) {
       navigator.share({ title: '취향와인', text })
     } else {
@@ -333,12 +352,15 @@ function App() {
 
       {screen === 'result' && (
         <div className="screen result-screen">
-          <div className="result-code">내 와인 캐릭터는?</div>
-          <div className="result-emoji">{wine.emoji}</div>
-          <div className="result-title">{wine.title}</div>
-          <div className="result-subtitle">{wine.subtitle}</div>
-          <div className="result-character">{wine.character}</div>
-          <div className="result-description">🍷 {wine.description}</div>
+          <div className="share-card" ref={shareCardRef}>
+            <div className="result-code">내 와인 캐릭터는?</div>
+            <div className="result-emoji">{wine.emoji}</div>
+            <div className="result-title">{wine.title}</div>
+            <div className="result-subtitle">{wine.subtitle}</div>
+            <div className="result-character">{wine.character}</div>
+            <div className="result-description">🍷 {wine.description}</div>
+            <div className="share-card-footer">취향와인 · intoss://winelover</div>
+          </div>
 
           <div className="profile">
             <div className="profile-label">📊 내 취향 프로필</div>

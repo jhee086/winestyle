@@ -228,6 +228,23 @@
   font-style: italic;
 }
 
+/* Share card */
+.share-card {
+  background: linear-gradient(160deg, #fdf6f0 0%, #f5e6dc 100%);
+  border: 1px solid #f0e0d0;
+  border-radius: 20px;
+  padding: 28px 24px 20px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.share-card-footer {
+  margin-top: 16px;
+  font-size: 11px;
+  color: var(--text-light);
+  letter-spacing: 0.5px;
+}
+
 /* Profile */
 .profile {
   background: var(--wine-bg);
