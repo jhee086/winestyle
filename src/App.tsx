@@ -1,34 +1,34 @@
 import { useState, useMemo, useEffect, useRef } from 'react'
-import { TossAds } from '@apps-in-toss/web-framework'
 import './App.css'
 
 const AD_GROUP_ID = 'ait.v2.live.f6820d0c4f104613'
+const isTossWebView = /TOSS|AIT/i.test(navigator.userAgent)
 
 function BannerAd() {
   const containerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
+    if (!isTossWebView) return
     let destroy: (() => void) | undefined
 
-    try {
-      if (!TossAds.initialize.isSupported()) return
-
-      TossAds.initialize({
-        callbacks: {
-          onInitialized: () => {
-            if (!containerRef.current) return
-            const attached = TossAds.attachBanner(AD_GROUP_ID, containerRef.current, {
-              theme: 'auto',
-              tone: 'blackAndWhite',
-              variant: 'expanded',
-            })
-            destroy = () => attached?.destroy()
+    import('@apps-in-toss/web-framework').then(({ TossAds }) => {
+      try {
+        if (!TossAds.initialize.isSupported()) return
+        TossAds.initialize({
+          callbacks: {
+            onInitialized: () => {
+              if (!containerRef.current) return
+              const attached = TossAds.attachBanner(AD_GROUP_ID, containerRef.current, {
+                theme: 'auto',
+                tone: 'blackAndWhite',
+                variant: 'expanded',
+              })
+              destroy = () => attached?.destroy()
+            },
           },
-        },
-      })
-    } catch {
-      return
-    }
+        })
+      } catch {}
+    }).catch(() => {})
 
     return () => destroy?.()
   }, [])
