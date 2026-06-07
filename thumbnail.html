@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800;900&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      width: 1932px;
+      height: 828px;
+      overflow: hidden;
+      font-family: 'Noto Sans KR', -apple-system, sans-serif;
+      background: linear-gradient(140deg, #3a0b18 0%, #5e2530 40%, #722f37 70%, #4a1a20 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .bg-blob-1 {
+      position: absolute;
+      width: 700px; height: 700px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(201,169,97,0.12) 0%, transparent 70%);
+      top: -250px; right: 320px;
+    }
+    .bg-blob-2 {
+      position: absolute;
+      width: 500px; height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,255,255,0.04) 0%, transparent 70%);
+      bottom: -150px; left: 80px;
+    }
+    .bg-blob-3 {
+      position: absolute;
+      width: 300px; height: 300px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(201,169,97,0.08) 0%, transparent 70%);
+      top: 100px; left: 600px;
+    }
+
+    /* decorative dots grid */
+    .dots {
+      position: absolute;
+      right: 0; top: 0;
+      width: 860px; height: 828px;
+      opacity: 0.04;
+      background-image: radial-gradient(circle, #fff 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+
+    .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 1680px;
+      z-index: 1;
+    }
+
+    .left {
+      flex: 1;
+      max-width: 900px;
+    }
+
+    .brand-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(201,169,97,0.15);
+      border: 1px solid rgba(201,169,97,0.4);
+      color: #c9a961;
+      padding: 10px 22px;
+      border-radius: 30px;
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      margin-bottom: 32px;
+    }
+
+    .title {
+      font-size: 96px;
+      font-weight: 900;
+      color: #ffffff;
+      line-height: 1.1;
+      letter-spacing: -2px;
+      margin-bottom: 28px;
+    }
+
+    .title em {
+      color: #e8c97a;
+      font-style: normal;
+    }
+
+    .subtitle {
+      font-size: 30px;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.6;
+      margin-bottom: 48px;
+      font-weight: 400;
+    }
+
+    .tags {
+      display: flex;
+      gap: 14px;
+    }
+
+    .tag {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: rgba(255,255,255,0.85);
+      padding: 10px 22px;
+      border-radius: 24px;
+      font-size: 22px;
+      font-weight: 600;
+    }
+
+    .tag.gold {
+      background: rgba(201,169,97,0.2);
+      border-color: rgba(201,169,97,0.5);
+      color: #c9a961;
+    }
+
+    .right {
+      flex-shrink: 0;
+      width: 560px;
+      height: 560px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .wine-glow {
+      position: absolute;
+      width: 420px; height: 420px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(201,169,97,0.2) 0%, transparent 70%);
+    }
+
+    .wine-emoji {
+      font-size: 260px;
+      line-height: 1;
+      position: relative;
+      z-index: 1;
+      filter: drop-shadow(0 24px 80px rgba(0,0,0,0.4));
+    }
+
+    /* card decoration */
+    .card-strip {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 6px;
+      background: linear-gradient(90deg, #c9a961, #e8c97a, #c9a961);
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-blob-1"></div>
+  <div class="bg-blob-2"></div>
+  <div class="bg-blob-3"></div>
+  <div class="dots"></div>
+
+  <div class="container">
+    <div class="left">
+      <div class="brand-badge">🍷 취향와인</div>
+      <div class="title">내 와인<br><em>캐릭터</em>는?</div>
+      <div class="subtitle">일상 취향으로 찾는 내 와인 스타일<br>와인 몰라도, 취향은 알잖아요</div>
+      <div class="tags">
+        <div class="tag gold">8문항 · 8가지 타입</div>
+        <div class="tag">무료 테스트</div>
+      </div>
+    </div>
+
+    <div class="right">
+      <div class="wine-glow"></div>
+      <div class="wine-emoji">🍷</div>
+    </div>
+  </div>
+
+  <div class="card-strip"></div>
+</body>
+</html>
