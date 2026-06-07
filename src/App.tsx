@@ -2,10 +2,10 @@ import { useState, useMemo, useEffect, useRef } from 'react'
 import './App.css'
 
 const AD_IDS = {
-  landing: 'ait.v2.live.f6820d0c4f104613', // 랜딩 광고 그룹 ID
-  quiz_a:  'ait.v2.live.f6820d0c4f104613', // 퀴즈 홀수 문항 광고 그룹 ID
-  quiz_b:  'ait.v2.live.f6820d0c4f104613', // 퀴즈 짝수 문항 광고 그룹 ID
-  result:  'ait.v2.live.f6820d0c4f104613', // 결과 광고 그룹 ID
+  landing: 'ait.v2.live.f6820d0c4f104613',
+  quiz_a:  'ait.v2.live.fb326e51d0ae4e73',
+  quiz_b:  'ait.v2.live.340e412a5d12481f',
+  result:  'ait.v2.live.fdc51421f96242a8',
 }
 
 const isTossWebView = /TOSS|AIT/i.test(navigator.userAgent)
