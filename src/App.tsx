@@ -3,7 +3,8 @@ import './App.css'
 
 const AD_IDS = {
   landing: 'ait.v2.live.f6820d0c4f104613', // 랜딩 광고 그룹 ID
-  quiz:    'ait.v2.live.f6820d0c4f104613', // 퀴즈 광고 그룹 ID
+  quiz_a:  'ait.v2.live.f6820d0c4f104613', // 퀴즈 홀수 문항 광고 그룹 ID
+  quiz_b:  'ait.v2.live.f6820d0c4f104613', // 퀴즈 짝수 문항 광고 그룹 ID
   result:  'ait.v2.live.f6820d0c4f104613', // 결과 광고 그룹 ID
 }
 
@@ -334,7 +335,7 @@ function App() {
               <div className="option-text">{questions[currentQ].b.text}</div>
             </button>
           </div>
-          <BannerAd slot="quiz" />
+          <BannerAd slot={currentQ % 2 === 0 ? 'quiz_a' : 'quiz_b'} />
         </div>
       )}
 
