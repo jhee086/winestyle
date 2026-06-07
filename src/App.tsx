@@ -15,6 +15,7 @@ function BannerAd({ slot }: { slot: keyof typeof AD_IDS }) {
   const containerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
+    if (!isTossWebView) return
     if (!TossAds.initialize.isSupported()) return
     let destroy: (() => void) | undefined
 
