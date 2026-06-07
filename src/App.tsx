@@ -1,10 +1,15 @@
 import { useState, useMemo, useEffect, useRef } from 'react'
 import './App.css'
 
-const AD_GROUP_ID = 'ait.v2.live.f6820d0c4f104613'
+const AD_IDS = {
+  landing: 'ait.v2.live.f6820d0c4f104613', // 랜딩 광고 그룹 ID
+  quiz:    'ait.v2.live.f6820d0c4f104613', // 퀴즈 광고 그룹 ID
+  result:  'ait.v2.live.f6820d0c4f104613', // 결과 광고 그룹 ID
+}
+
 const isTossWebView = /TOSS|AIT/i.test(navigator.userAgent)
 
-function BannerAd() {
+function BannerAd({ slot }: { slot: keyof typeof AD_IDS }) {
   const containerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -18,7 +23,7 @@ function BannerAd() {
           callbacks: {
             onInitialized: () => {
               if (!containerRef.current) return
-              const attached = TossAds.attachBanner(AD_GROUP_ID, containerRef.current, {
+              const attached = TossAds.attachBanner(AD_IDS[slot], containerRef.current, {
                 theme: 'auto',
                 tone: 'blackAndWhite',
                 variant: 'expanded',
@@ -31,7 +36,7 @@ function BannerAd() {
     }).catch(() => {})
 
     return () => destroy?.()
-  }, [])
+  }, [slot])
 
   return <div ref={containerRef} style={{ width: '100%', height: '96px', marginTop: '24px' }} />
 }
@@ -308,7 +313,7 @@ function App() {
             와인 몰라도, 취향은 알잖아요
           </div>
           <button className="btn-primary" onClick={startQuiz}>시작하기</button>
-          <BannerAd />
+          <BannerAd slot="landing" />
         </div>
       )}
 
@@ -329,7 +334,7 @@ function App() {
               <div className="option-text">{questions[currentQ].b.text}</div>
             </button>
           </div>
-          <BannerAd />
+          <BannerAd slot="quiz" />
         </div>
       )}
 
@@ -361,7 +366,7 @@ function App() {
             })}
           </div>
 
-          <BannerAd />
+          <BannerAd slot="result" />
           <div className="section-label">🍷 추천 와인</div>
           <div className="wine-list">
             {wine.wines.map((w) => (
