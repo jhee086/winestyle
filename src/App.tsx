@@ -280,14 +280,11 @@ function App() {
   }
 
   const shareResult = () => {
-    const text = `🍷 내 와인 캐릭터: ${wine.title}\n(${wine.subtitle})\n\n${wine.character}`
-    const url = 'intoss://winelover'
+    const text = `🍷 내 와인 캐릭터: ${wine.title}\n(${wine.subtitle})\n\n${wine.character}\n\n취향와인 앱에서 나도 찾아봐요 👉 intoss://winelover`
     if (navigator.share) {
-      navigator.share({ title: '취향와인', text, url }).catch(() => {
-        navigator.clipboard?.writeText(`${text}\n\n${url}`).then(() => alert('결과가 복사되었어요! 🍷'))
-      })
+      navigator.share({ title: '취향와인', text })
     } else {
-      navigator.clipboard?.writeText(`${text}\n\n${url}`).then(() => alert('결과가 복사되었어요! 🍷'))
+      navigator.clipboard?.writeText(text).then(() => alert('결과가 복사되었어요! 🍷'))
     }
   }
 
