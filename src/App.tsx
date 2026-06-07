@@ -8,22 +8,27 @@ function BannerAd() {
   const containerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    if (!TossAds.initialize.isSupported()) return
     let destroy: (() => void) | undefined
 
-    TossAds.initialize({
-      callbacks: {
-        onInitialized: () => {
-          if (!containerRef.current) return
-          const attached = TossAds.attachBanner(AD_GROUP_ID, containerRef.current, {
-            theme: 'auto',
-            tone: 'blackAndWhite',
-            variant: 'expanded',
-          })
-          destroy = () => attached?.destroy()
+    try {
+      if (!TossAds.initialize.isSupported()) return
+
+      TossAds.initialize({
+        callbacks: {
+          onInitialized: () => {
+            if (!containerRef.current) return
+            const attached = TossAds.attachBanner(AD_GROUP_ID, containerRef.current, {
+              theme: 'auto',
+              tone: 'blackAndWhite',
+              variant: 'expanded',
+            })
+            destroy = () => attached?.destroy()
+          },
         },
-      },
-    })
+      })
+    } catch {
+      return
+    }
 
     return () => destroy?.()
   }, [])
