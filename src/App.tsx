@@ -74,44 +74,44 @@ type WineType = {
 
 const questions: Question[] = [
   {
-    q: '카페에서 자주 시키는 음료는?',
-    a: { icon: '☕', text: '아이스 아메리카노 / 콜드브루', scores: { sweet: -2 } },
-    b: { icon: '🥛', text: '바닐라라떼 / 카라멜 마키아토', scores: { sweet: 2 } },
+    q: '카페에 가면 주로 시키는 메뉴는?',
+    a: { icon: '☕', text: '아이스 아메리카노 / 콜드브루', scores: { sweet: -3 } },
+    b: { icon: '🥛', text: '라떼 / 바닐라라떼 / 카라멜 마키아토', scores: { sweet: 3 } },
   },
   {
-    q: '달콤한 거 얼마나 좋아해요?',
-    a: { icon: '🍰', text: '단 거 최고! 크림·시럽 듬뿍', scores: { sweet: 2 } },
-    b: { icon: '🍫', text: '단 건 좀... 쌉쌀한 게 더 좋아', scores: { sweet: -2 } },
+    q: '배가 많이 고플 때 주로 찾는 음식은?',
+    a: { icon: '🥩', text: '든든하게 배 꽉 채워야 직성이 풀리는 편', scores: { body: 3 } },
+    b: { icon: '🥗', text: '가볍게 먹어도 충분히 만족하는 편', scores: { body: -3 } },
   },
   {
-    q: '메인 메뉴 골라봐!',
-    a: { icon: '🥩', text: '두툼한 립아이 스테이크', scores: { body: 2 } },
-    b: { icon: '🥗', text: '회덮밥 / 냉모밀', scores: { body: -2 } },
+    q: '주말 오전을 보내는 방식은?',
+    a: { icon: '🏃', text: '일찍 일어나서 운동하거나 나가는 편', scores: { body: 3 } },
+    b: { icon: '😴', text: '최대한 늦게까지 자고 천천히 시작하는 편', scores: { body: -3 } },
   },
   {
-    q: '좋아하는 운동/액티비티?',
-    a: { icon: '🏋️', text: '헬스 / 클라이밍 / 격투기', scores: { body: 2 } },
-    b: { icon: '🧘', text: '요가 / 필라테스 / 산책', scores: { body: -2 } },
+    q: '좋아하는 과일 고른다면?',
+    a: { icon: '🍋', text: '청포도 / 자두 / 라임 (새콤한 것)', scores: { acid: 3 } },
+    b: { icon: '🍑', text: '복숭아 / 망고 / 바나나 (달고 부드러운 것)', scores: { acid: -3 } },
   },
   {
-    q: '과일 고른다면?',
-    a: { icon: '🍋', text: '청포도 / 키위 / 자두 (새콤한 것)', scores: { acid: 4 } },
-    b: { icon: '🍑', text: '복숭아 / 바나나 / 망고 (달고 부드러운 것)', scores: { acid: -4 } },
+    q: '향수를 뿌리는 스타일은?',
+    a: { icon: '💐', text: '진하게, 지나갈 때 퍼지는 편', scores: { aroma: 3 } },
+    b: { icon: '🌿', text: '은은하게, 나만 알 정도로', scores: { aroma: -3 } },
   },
   {
-    q: '향수 뿌릴 때는?',
-    a: { icon: '💨', text: '지나갈 때 주변 사람이 알아채는 편', scores: { aroma: 4 } },
-    b: { icon: '🤫', text: '나만 알 수 있는 은은한 향', scores: { aroma: -4 } },
+    q: '영상 콘텐츠를 고른다면?',
+    a: { icon: '🎬', text: '가볍게 보는 영화 / 예능 / 유튜브', scores: { complex: -3 } },
+    b: { icon: '📖', text: '볼 때마다 새로 보이는 영화 / 소설', scores: { complex: 3 } },
   },
   {
-    q: '영화나 책 한 편 고른다면?',
-    a: { icon: '🎬', text: '한 번 봐도 다 이해되는 명쾌한 거', scores: { complex: -3 } },
-    b: { icon: '📖', text: '다시 볼 때 다르게 보이는 깊은 거', scores: { complex: 3 } },
+    q: '주로 듣는 음악 장르는?',
+    a: { icon: '🎵', text: '신나는 팝 / 힙합 / 댄스', scores: { complex: -3 } },
+    b: { icon: '🎷', text: '재즈 / 클래식 / 인디 감성', scores: { complex: 3 } },
   },
   {
-    q: '음료 취향은?',
-    a: { icon: '🫧', text: '탄산 있어야 맛있어, 톡 쏘는 게 좋아', scores: { bubble: 3 } },
-    b: { icon: '🫖', text: '부드럽게 넘어가는 게 좋아, 탄산은 별로', scores: { bubble: -3 } },
+    q: '술자리 첫 잔으로 고르는 건?',
+    a: { icon: '🍺', text: '맥주 / 하이볼 / 탄산 빠지면 아쉬워', scores: { bubble: 3 } },
+    b: { icon: '🍷', text: '와인 / 소주 / 탄산 없어도 충분해', scores: { bubble: -3 } },
   },
 ]
 
@@ -122,7 +122,7 @@ const wineTypes: Record<string, WineType> = {
     subtitle: '샴페인파',
     character: '특별한 순간을 사랑하는 사람. 일상의 작은 축하도 놓치지 않는, 우아하면서 발랄한 매력. 분위기를 띄우는 모임의 호스트 타입.',
     description: '톡 쏘는 미세 기포 + 시트러스 + 갓 구운 토스트 향. 식전주의 정석이자 모든 축하의 시작.',
-    profile: { sweet: -2, body: -1, acid: 3, aroma: 1, complex: 3, bubble: 4 },
+    profile: { sweet: -3, body: -5, acid: 3, aroma: -1, complex: 3, bubble: 3 },
     wines: [
       { emoji: '🥂', name: '뵈브 클리코 옐로우 라벨', store: '와인앤모어 · 신세계L&B', price: '110,000원' },
       { emoji: '🍾', name: '모엣 샹동 임페리얼', store: '이마트 · 와인앤모어', price: '89,000원' },
@@ -136,7 +136,7 @@ const wineTypes: Record<string, WineType> = {
     subtitle: '모스카토파',
     character: '와인이 처음이어도 두렵지 않은 사람. 부담 없이 한 잔, 가볍게 즐기는 게 진리. 햇살 좋은 브런치에 어울리는 산뜻함.',
     description: '도수 5~6%의 미세 기포 + 잘 익은 복숭아와 꿀의 단맛. 와인 입문자의 영원한 친구.',
-    profile: { sweet: 3, body: -3, acid: 1, aroma: 3, complex: -3, bubble: 2 },
+    profile: { sweet: 3, body: -5, acid: -2, aroma: 3, complex: -5, bubble: 2 },
     wines: [
       { emoji: '🍇', name: '비에티 카신에타 모스카토 다스티', store: '와인앤모어 · 신세계L&B', price: '45,000원' },
       { emoji: '🌸', name: '미켈레 키아를로 니볼레 모스카토 다스티', store: '와인앤모어', price: '25,000원' },
@@ -150,7 +150,7 @@ const wineTypes: Record<string, WineType> = {
     subtitle: '소비뇽 블랑파',
     character: '깔끔하고 시원한 것을 사랑하는 사람. 군더더기 없는 직선적인 매력. 해산물 파티의 영원한 메인 게스트.',
     description: '자몽, 라임, 풀잎의 청량한 산미. 한 모금에 입안이 상쾌해지는 드라이 화이트의 정석.',
-    profile: { sweet: -3, body: -3, acid: 4, aroma: 2, complex: -2, bubble: -1 },
+    profile: { sweet: -3, body: -5, acid: 3, aroma: 3, complex: -3, bubble: -2 },
     wines: [
       { emoji: '☁️', name: '클라우디 베이 소비뇽 블랑', store: '와인앤모어 · 신세계L&B', price: '55,000원' },
       { emoji: '🍋', name: '킴 크로포드 소비뇽 블랑', store: '이마트 · 홈플러스', price: '24,900원' },
@@ -164,7 +164,7 @@ const wineTypes: Record<string, WineType> = {
     subtitle: '샤르도네파',
     character: '묵직한 우아함을 아는 사람. 따뜻한 부엌에서 버터 듬뿍 요리하는 분위기. 풍부함을 사랑하는 미식가.',
     description: '오크 숙성한 풀바디 화이트. 버터, 바닐라, 브리오슈의 풍부한 향. 화이트의 끝판왕.',
-    profile: { sweet: -2, body: 3, acid: 0, aroma: 1, complex: 1, bubble: -1 },
+    profile: { sweet: -1, body: 4, acid: -2, aroma: 2, complex: 3, bubble: -2 },
     wines: [
       { emoji: '🍞', name: '루이 자도 부르고뉴 샤르도네', store: '와인앤모어 · 신세계L&B', price: '65,000원' },
       { emoji: '🥐', name: '타라파카 그란 리제르바 샤르도네', store: '이마트', price: '32,800원' },
@@ -178,7 +178,7 @@ const wineTypes: Record<string, WineType> = {
     subtitle: '피노 누아파',
     character: '섬세하고 깊이 있는 사람. 가벼운 듯하지만 한 자 한 자 음미하는 사색가. 향에 민감한 미식가.',
     description: '가벼운 레드지만 향은 풍부. 체리, 라즈베리, 장미, 이끼가 한 잔에. 미식가의 영원한 사랑.',
-    profile: { sweet: -2, body: -1, acid: 3, aroma: 3, complex: 4, bubble: -1 },
+    profile: { sweet: -2, body: -1, acid: 2, aroma: 3, complex: 5, bubble: -2 },
     wines: [
       { emoji: '🍷', name: '로쉬 벨렌 부르고뉴 피노 누아 비에이 비뉴', store: '와인앤모어', price: '49,000원' },
       { emoji: '🍒', name: '메오미 피노 누아', store: '이마트 · 코스트코', price: '39,900원' },
@@ -192,7 +192,7 @@ const wineTypes: Record<string, WineType> = {
     subtitle: '메를로파',
     character: '다정하고 부담 없는, 곁에 있으면 편안한 사람. 누구도 거부할 수 없는 둥글둥글함. 데일리 와인의 최강자.',
     description: '부드러운 미디엄 바디 레드. 자두, 초콜릿, 바닐라가 둥글둥글하게 입을 채워줌.',
-    profile: { sweet: -1, body: 2, acid: -3, aroma: -1, complex: -2, bubble: -1 },
+    profile: { sweet: 2, body: 3, acid: -3, aroma: -2, complex: -3, bubble: -2 },
     wines: [
       { emoji: '🏔️', name: '몬테스 알파 메를로', store: '와인앤모어 · 이마트', price: '35,000원' },
       { emoji: '🍫', name: '베리 브라더스 앤 러드 트레디셔널 클라렛', store: '홈플러스', price: '19,000원' },
@@ -206,7 +206,7 @@ const wineTypes: Record<string, WineType> = {
     subtitle: '카베르네 소비뇽파',
     character: '클래식과 정통을 아는 사람. 격식 있고 단단한 매력, 시간이 갈수록 진가가 드러나는 묵직한 타입.',
     description: '풀바디 레드의 왕. 블랙커런트, 삼나무, 가죽향의 깊은 향. 강한 탄닌과 단단한 구조감.',
-    profile: { sweet: -3, body: 4, acid: 1, aroma: 1, complex: 3, bubble: -1 },
+    profile: { sweet: -3, body: 5, acid: 1, aroma: -2, complex: 3, bubble: -2 },
     wines: [
       { emoji: '🏰', name: '샤또 다우작 마르고 2021', store: '코스트코', price: '77,900원' },
       { emoji: '🏅', name: '1865 카베르네 소비뇽', store: '와인앤모어 · 이마트', price: '45,000원' },
@@ -220,7 +220,7 @@ const wineTypes: Record<string, WineType> = {
     subtitle: '말벡파',
     character: '강렬한 자극을 사랑하는 사람. 한 잔에 우주를 담는, 정열적이고 농밀한 매력. 분위기를 휘어잡는 카리스마.',
     description: '농밀한 과실 폭탄. 자두, 블랙베리, 다크초콜릿. 한 모금에 풍성한 풀바디 경험.',
-    profile: { sweet: -1, body: 4, acid: -2, aroma: 1, complex: -2, bubble: -1 },
+    profile: { sweet: 3, body: 6, acid: -3, aroma: 3, complex: -5, bubble: -2 },
     wines: [
       { emoji: '🔥', name: '카테나 말벡', store: '와인앤모어 · 코스트코', price: '39,000원' },
       { emoji: '💃', name: '트라피체 오크 캐스크 말벡', store: '이마트 · 홈플러스', price: '19,800원' },
