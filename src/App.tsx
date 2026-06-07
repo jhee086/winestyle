@@ -290,10 +290,18 @@ function App() {
     }
   }
 
-  const shareResult = () => {
+  const shareResult = async () => {
+    const ogImageUrl = 'https://jhee086.github.io/winestyle/thumbnail.png'
+
+    if (isTossWebView) {
+      const { getTossShareLink, share } = await import('@apps-in-toss/web-framework')
+      const tossLink = await getTossShareLink('intoss://winelover', ogImageUrl)
+      await share({ message: tossLink })
+      return
+    }
+
     const text = `🍷 내 와인 캐릭터: ${wine.title} (${wine.subtitle})\n${wine.character}`
     const url = 'https://jhee086.github.io/winestyle/'
-
     if (navigator.share) {
       navigator.share({ title: '취향와인 · 내 와인 캐릭터는?', text, url })
     } else {
