@@ -341,15 +341,12 @@ function App() {
 
       {screen === 'result' && (
         <div className="screen result-screen">
-          <div className="share-card">
-            <div className="result-code">내 와인 캐릭터는?</div>
-            <div className="result-emoji">{wine.emoji}</div>
-            <div className="result-title">{wine.title}</div>
-            <div className="result-subtitle">{wine.subtitle}</div>
-            <div className="result-character">{wine.character}</div>
-            <div className="result-description">🍷 {wine.description}</div>
-            <div className="share-card-footer">취향와인 · intoss://winelover</div>
-          </div>
+          <div className="result-code">내 와인 캐릭터는?</div>
+          <div className="result-emoji">{wine.emoji}</div>
+          <div className="result-title">{wine.title}</div>
+          <div className="result-subtitle">{wine.subtitle}</div>
+          <div className="result-character">{wine.character}</div>
+          <div className="result-description">🍷 {wine.description}</div>
 
           <div className="profile">
             <div className="profile-label">📊 내 취향 프로필</div>
