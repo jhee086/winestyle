@@ -288,20 +288,18 @@ function App() {
   const shareResult = async () => {
     const text = `🍷 내 와인 캐릭터: ${wine.title}\n(${wine.subtitle})\n\n${wine.character}\n\n취향와인 앱에서 나도 찾아봐요 👉 intoss://winelover`
 
-    if (shareCardRef.current && navigator.share && navigator.canShare) {
+    if (shareCardRef.current && navigator.share) {
       try {
         const html2canvas = (await import('html2canvas')).default
         const canvas = await html2canvas(shareCardRef.current, { backgroundColor: null, scale: 2 })
-        canvas.toBlob(async (blob) => {
-          if (!blob) return
+        const blob = await new Promise<Blob | null>((resolve) => canvas.toBlob(resolve, 'image/png'))
+        if (blob) {
           const file = new File([blob], 'wine-character.png', { type: 'image/png' })
-          if (navigator.canShare({ files: [file] })) {
+          if (navigator.canShare?.({ files: [file] })) {
             await navigator.share({ title: '취향와인', text, files: [file] })
-          } else {
-            await navigator.share({ title: '취향와인', text })
+            return
           }
-        }, 'image/png')
-        return
+        }
       } catch {}
     }
 
